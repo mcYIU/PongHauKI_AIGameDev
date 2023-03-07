@@ -12,31 +12,41 @@ public class GameController : MonoBehaviour
 
     public SpriteRenderer[] sprites;
 
-    char[] state = new char[] { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };    //I don't know how to use $ to fix the format in " A'',B'',C'',D'',''"
+    char[] state = new char[] { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };    //I don't know how to use $ to fix the format in " A'(pos)',B'(pos)',C'(pos)',D'(pos)',''"
 
-    Dictionary<char, Color> pawnColor = new Dictionary<char, Color>()    //define pawns in colors
+    //char playerX = 'X';
+    //char playerY = 'Y';
+
+
+    Dictionary<char, Color> posColor = new Dictionary<char, Color>()    //define pawns A to D in colors
     {
         { 'A', Color.red },
         { 'B', Color.yellow },
         { 'C', Color.cyan },
         { 'D', Color.blue },
+        { 'O', Color.white },
     };
 
     void Start()
     {
-        
-
+        //DrawState();
     }
 
 
     void Update()
     {
-        getPawn();
+        playerMove();
     }
 
 
-    public void getPawn()
+    public void playerMove()
     {
+        SpriteRenderer pos1_Renderer = pos1.transform.GetComponent<SpriteRenderer>();
+        SpriteRenderer pos2_Renderer = pos2.transform.GetComponent<SpriteRenderer>();
+        SpriteRenderer pos3_Renderer = pos3.transform.GetComponent<SpriteRenderer>();
+        SpriteRenderer pos4_Renderer = pos4.transform.GetComponent<SpriteRenderer>();
+        SpriteRenderer pos5_Renderer = pos5.transform.GetComponent<SpriteRenderer>();
+ 
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 worldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -45,9 +55,19 @@ public class GameController : MonoBehaviour
             if (hit)
             {
                 string clickedPos = hit.transform.name;
-                //Debug.Log(clickedPos);
-                Color color = hit.transform.GetComponent<SpriteRenderer>().color;
-                Debug.Log(color.ToString());
+                Debug.Log(clickedPos);
+                Color hitColor = hit.transform.GetComponent<SpriteRenderer>().color;
+                Debug.Log(hitColor);
+
+                switch (clickedPos)
+                {
+                    case "Pos1":
+                        if(pos3_Renderer.color == Color.white)
+                        {
+                            pos1_Renderer.color = new Color(1f,1f,1f,1f);
+                        }
+                        break;
+                }
     
             }
 
@@ -63,5 +83,11 @@ public class GameController : MonoBehaviour
 
        // }
 
+    }
+
+    void DrawState()
+    {
+        for (int i = 0; i <state.Length; i++)
+            sprites[i].color = posColor[state[i]];
     }
 }
