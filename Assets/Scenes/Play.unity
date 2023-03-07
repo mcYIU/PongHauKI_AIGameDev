@@ -278,7 +278,12 @@ MonoBehaviour:
   pos3: {fileID: 2051878732}
   pos4: {fileID: 748588616}
   pos5: {fileID: 90239073}
-  sprites: []
+  posRenderer:
+  - {fileID: 1348766844}
+  - {fileID: 2125126306}
+  - {fileID: 2051878733}
+  - {fileID: 748588617}
+  - {fileID: 90239074}
 --- !u!1 &637907934
 GameObject:
   m_ObjectHideFlags: 0

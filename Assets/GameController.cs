@@ -10,13 +10,9 @@ public class GameController : MonoBehaviour
     public GameObject pos4;
     public GameObject pos5;
 
-    public SpriteRenderer[] sprites;
+    public SpriteRenderer[] posRenderer;
 
-    char[] state = new char[] { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };    //I don't know how to use $ to fix the format in " A'(pos)',B'(pos)',C'(pos)',D'(pos)',''"
-
-    char ai = 'X';
-    char player = 'Y';
-
+    char[] state = new char[] {' ', ' ', ' ', ' ', ' '}; 
 
     Dictionary<char, Color> posColor = new Dictionary<char, Color>()    //define pawns A to D in colors
     {
@@ -27,19 +23,34 @@ public class GameController : MonoBehaviour
         { 'O', Color.white },
     };
 
+    bool gameOver = false;
+    public bool playerTurn;
+
     void Start()
     {
-        //DrawState();
+        DrawState();
     }
 
 
     void Update()
     {
-        playerMove();
+       if (gameOver) return;
+
+        if (playerTurn)
+        {
+            PlayerMove();
+            DrawState();
+        }
+        else
+        {
+            CompMove();
+            DrawState();
+        }
+
     }
 
 
-    public void playerMove()
+    void PlayerMove()
     {
         SpriteRenderer pos1_Renderer = pos1.transform.GetComponent<SpriteRenderer>();
         SpriteRenderer pos2_Renderer = pos2.transform.GetComponent<SpriteRenderer>();
@@ -74,6 +85,7 @@ public class GameController : MonoBehaviour
                         }else
                         {
                             print("No move is done.");
+                            clickedPos = "invalid";
                         }
                         break;
 
@@ -92,6 +104,7 @@ public class GameController : MonoBehaviour
                         else
                         {
                             print("No move is done.");
+                            clickedPos = "invalid";
                         }
                         break;
 
@@ -119,6 +132,7 @@ public class GameController : MonoBehaviour
                         }else
                         {
                             print("No move is done.");
+                            clickedPos = "invalid";
                         }
                         break;
 
@@ -134,9 +148,15 @@ public class GameController : MonoBehaviour
                             pos4_Renderer.color = Color.white;
                             pos1_Renderer.color = hitColor;
                         }
+                        else if (pos5_Renderer.color == Color.white)
+                        {
+                            pos4_Renderer.color = Color.white;
+                            pos5_Renderer.color = hitColor;
+                        }
                         else
                         {
                             print("No move is done.");
+                            clickedPos = "invalid";
                         }
                         break;
 
@@ -152,32 +172,38 @@ public class GameController : MonoBehaviour
                             pos5_Renderer.color = Color.white;
                             pos2_Renderer.color = hitColor;
                         }
+                        else if (pos4_Renderer.color == Color.white)
+                        {
+                            pos5_Renderer.color = Color.white;
+                            pos4_Renderer.color = hitColor;
+                        }
                         else
                         {
                             print("No move is done.");
+                            clickedPos = "invalid";
                         }
                         break;
                 }
-    
-            }
 
+                if(clickedPos != "invalid")
+                {
+                    playerTurn = false;
+                }
+            }
         }
     }
 
-    public void movePawn(string clickedPos)
+    void CompMove()
     {
 
-       // switch (clickedPos)
-       // {
-       //     case "Pos1":
-
-       // }
 
     }
+
 
     void DrawState()
     {
-        for (int i = 0; i <state.Length; i++)
-            sprites[i].color = posColor[state[i]];
+        for (int i = 0; i < state.Length; i++)
+            posRenderer[i].color = posColor[state[i]];
     }
+
 }
