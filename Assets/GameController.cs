@@ -14,8 +14,8 @@ public class GameController : MonoBehaviour
 
     char[] state = new char[] { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };    //I don't know how to use $ to fix the format in " A'(pos)',B'(pos)',C'(pos)',D'(pos)',''"
 
-    //char playerX = 'X';
-    //char playerY = 'Y';
+    char ai = 'X';
+    char player = 'Y';
 
 
     Dictionary<char, Color> posColor = new Dictionary<char, Color>()    //define pawns A to D in colors
@@ -55,16 +55,106 @@ public class GameController : MonoBehaviour
             if (hit)
             {
                 string clickedPos = hit.transform.name;
-                Debug.Log(clickedPos);
+                //Debug.Log(clickedPos);
                 Color hitColor = hit.transform.GetComponent<SpriteRenderer>().color;
-                Debug.Log(hitColor);
+                //Debug.Log(hitColor);
 
                 switch (clickedPos)
                 {
                     case "Pos1":
                         if(pos3_Renderer.color == Color.white)
                         {
-                            pos1_Renderer.color = new Color(1f,1f,1f,1f);
+                            pos1_Renderer.color = Color.white;
+                            pos3_Renderer.color = hitColor;
+
+                        }else if(pos4_Renderer.color == Color.white)
+                        {
+                            pos1_Renderer.color = Color.white;
+                            pos4_Renderer.color = hitColor;
+                        }else
+                        {
+                            print("No move is done.");
+                        }
+                        break;
+
+                    case "Pos2":
+                        if (pos3_Renderer.color == Color.white)
+                        {
+                            pos2_Renderer.color = Color.white;
+                            pos3_Renderer.color = hitColor;
+
+                        }
+                        else if (pos5_Renderer.color == Color.white)
+                        {
+                            pos2_Renderer.color = Color.white;
+                            pos5_Renderer.color = hitColor;
+                        }
+                        else
+                        {
+                            print("No move is done.");
+                        }
+                        break;
+
+                    case "Pos3":
+                        if (pos1_Renderer.color == Color.white)
+                        {
+                            pos3_Renderer.color = Color.white;
+                            pos1_Renderer.color = hitColor;
+
+                        }
+                        else if (pos2_Renderer.color == Color.white)
+                        {
+                            pos3_Renderer.color = Color.white;
+                            pos2_Renderer.color = hitColor;
+                        }
+                        else if (pos4_Renderer.color == Color.white)
+                        {
+                            pos3_Renderer.color = Color.white;
+                            pos4_Renderer.color = hitColor;
+                        }
+                        else if (pos5_Renderer.color == Color.white)
+                        {
+                            pos3_Renderer.color = Color.white;
+                            pos5_Renderer.color = hitColor;
+                        }else
+                        {
+                            print("No move is done.");
+                        }
+                        break;
+
+                    case "Pos4":
+                        if (pos3_Renderer.color == Color.white)
+                        {
+                            pos4_Renderer.color = Color.white;
+                            pos3_Renderer.color = hitColor;
+
+                        }
+                        else if (pos1_Renderer.color == Color.white)
+                        {
+                            pos4_Renderer.color = Color.white;
+                            pos1_Renderer.color = hitColor;
+                        }
+                        else
+                        {
+                            print("No move is done.");
+                        }
+                        break;
+
+                    case "Pos5":
+                        if (pos3_Renderer.color == Color.white)
+                        {
+                            pos5_Renderer.color = Color.white;
+                            pos3_Renderer.color = hitColor;
+
+                        }
+                        else if (pos2_Renderer.color == Color.white)
+                        {
+                            pos5_Renderer.color = Color.white;
+                            pos2_Renderer.color = hitColor;
+                        }
+                        else
+                        {
+                            print("No move is done.");
                         }
                         break;
                 }
