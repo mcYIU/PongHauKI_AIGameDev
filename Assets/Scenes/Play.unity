@@ -284,6 +284,7 @@ MonoBehaviour:
   - {fileID: 2051878733}
   - {fileID: 748588617}
   - {fileID: 90239074}
+  playerTurn: 1
 --- !u!1 &637907934
 GameObject:
   m_ObjectHideFlags: 0
